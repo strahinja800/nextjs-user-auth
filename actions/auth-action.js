@@ -1,5 +1,7 @@
 'use server'
 import { createUser } from '@/lib/user'
+/* import { signIn } from '@/lib/auth'
+import { redirect } from 'next/dist/server/api-utils' */
 
 export async function signUp(prevState, formData) {
   const email = formData.get('email')
@@ -33,3 +35,25 @@ export async function signUp(prevState, formData) {
   // if everything is fine, return success message
   return { success: true }
 }
+
+/* export async function logIn(prevState, formData) {
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  try {
+    await signIn('credentials', {
+      email,
+      password,
+      redirect: true,
+    })
+  } catch (error) {
+    if (error.message.includes('CredentialsSignin')) {
+      return { errors: { message: 'Invalid email or password!' } }
+    }
+
+    throw error
+  }
+
+  redirect('/training')
+}
+ */
