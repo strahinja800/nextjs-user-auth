@@ -2,20 +2,29 @@
   "name": "user-auth-final",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_OPTIONS='--max-old-space-size=4096' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.2"
+    "@auth/prisma-adapter": "^2.10.0",
+    "@prisma/client": "^6.15.0",
+    "bcryptjs": "^3.0.2",
+    "next": "14.2.4",
+    "next-auth": "^4.24.7",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "cross-env": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-    "@eslint/eslintrc": "^3"
+    "prisma": "^6.15.0"
   }
 }
