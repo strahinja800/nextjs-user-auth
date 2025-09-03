@@ -1,14 +1,17 @@
-import "./globals.css";
+import Providers from '@/components/Providers'
+import './globals.css'
 
 export const metadata = {
-  title: "Nextjs Auth",
-  description: "Nextjs authentication with next-auth",
-};
+  title: 'Nextjs Auth',
+  description: 'Nextjs authentication with next-auth',
+}
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang='en'>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
-  );
+  )
 }

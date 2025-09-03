@@ -1,6 +1,7 @@
 import { getAuthSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { PrismaClient } from '@prisma/client'
+import Header from '@/components/Header'
 
 const prisma = new PrismaClient()
 
@@ -16,6 +17,7 @@ export default async function TrainingPage() {
 
   return (
     <main>
+      <Header />
       <h1>Find your favorite activity</h1>
       <ul id='training-sessions'>
         {trainingSessions.map(training => (
