@@ -1,7 +1,7 @@
 'use client'
 
 /* import { useEffect } from 'react' */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 /* import { useFormState } from 'react-dom' */
 import { signIn } from 'next-auth/react'
@@ -11,11 +11,19 @@ import { signUp /* logIn */ } from '@/actions/auth-action'
 export default function AuthForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [error, setError] = useState('')
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const mode = searchParams.get('mode') || 'login'
   const isLogin = mode === 'login'
 
-  const [error, setError] = useState('')
-  /*   const [password, setPassword] = useState('') */
+  useEffect(() => {
+    setEmail('')
+    setPassword('')
+    setError('')
+  }, [mode])
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -61,24 +69,6 @@ export default function AuthForm() {
     }
   }
 
-  /* const [formState, formAction] = useFormState(isLogin ? logIn : signUp, {}) */
-
-  /*   useEffect(() => {
-    if (formState.success) {
-      signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      }).then(result => {
-        if (result.error) {
-          alert('Automatic login failed after signup.')
-        } else {
-          router.push('/training')
-        }
-      })
-    }
-  }, [formState, router, email, password]) */
-
   return (
     <form
       id='auth-form'
@@ -96,8 +86,8 @@ export default function AuthForm() {
           type='email'
           name='email'
           id='email'
-          /* value={email}
-          onChange={e => setEmail(e.target.value)} */
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
       </p>
@@ -107,18 +97,12 @@ export default function AuthForm() {
           type='password'
           name='password'
           id='password'
-          /* value={password}
-          onChange={e => setPassword(e.target.value)} */
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           required
         />
       </p>
-      {/* {formState.errors && (
-        <ul id='form-errors'>
-          {Object.keys(formState.errors).map(error => (
-            <li key={error}>{formState.errors[error]}</li>
-          ))}
-        </ul>
-      )} */}
+
       {error && <p id='form-errors'>{error}</p>}
       <p>
         {isLogin && <button type='submit'>Login</button>}
@@ -132,13 +116,4 @@ export default function AuthForm() {
       </p>
     </form>
   )
-}
-
-{
-  /* {mode === 'login' && (
-          <Link href='/?mode=signup'>Create new account.</Link>
-        )}
-        {mode === 'signup' && (
-          <Link href='/?mode=login'>Login with existing account.</Link>
-        )} */
 }
